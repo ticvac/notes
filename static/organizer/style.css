@@ -1,0 +1,200 @@
+body {
+    background-color: #575b66;
+    margin: 0;
+    font-family: "Bai Jamjuree", system-ui !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    min-height: 100dvh;
+}
+
+.content {
+    background-color: #575b66;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+    .tit {
+        color: wheat;
+        font-size: 2em;
+        
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    
+    .search {
+        background-color: #2c2f38;
+        border-radius: 1em;
+        font-size: 1em;
+        padding: 0.3em 0.7em;
+        box-shadow: 2px 2px 5px 1px #2c2f3856;
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            /* margin: 0 1em; */
+
+            span {
+                color: grey;
+                font-size: 1.8em;
+            }
+
+            input {
+                background-color: #2c2f38;
+                border: none;
+                color: white;
+                padding: 0.5em;
+                width: 100%;
+                border-radius: 1em;
+                font-size: 1.3em;
+            }
+            input:focus {
+                outline: none !important;
+            }
+
+            ::placeholder {
+                color: grey;
+            }
+        }
+
+        .authors {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid gray;
+            border-radius: 0.5em;
+            padding: 0.6em;
+            margin-bottom: 0.4em;
+            
+            a {
+                text-decoration: none;
+                color: white;
+                /* background-color: red; */
+                padding: 0.2em;
+            }
+        }
+
+        .error-message {
+            color: rgba(255, 0, 0, 0.702) !important;
+            padding-left: 0.3em;
+            padding-bottom: 0.4em;
+        }
+    }
+}
+
+.fff {
+    font-family: "Bai Jamjuree", system-ui !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.pieces {
+    background-color: #2c2f38;
+    border-radius: 1em;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    box-shadow: 2px 2px 5px 1px #2c2f3856;
+    
+    a {
+        color: white;
+        text-decoration: none;
+        padding: 0.3em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.tit {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+
+    a {
+        color: wheat;
+        text-decoration: none;
+        
+        span {
+            font-size: 1em;
+            font-weight: 700;
+        }
+    }
+}
+
+.tit-mini a {
+    font-size: 1em !important;
+    color: wheat;
+    text-decoration: none;
+    font-weight: 700 !important;
+}
+
+#authors::before {
+    content: "Autoři";
+    color: gray;
+    text-align: center;
+}
+
+#pieces::before {
+    color: gray;
+    content: "Díla";
+    text-align: center;
+}
+
+#load {
+    animation: rotation 1s infinite ease-in-out;
+}
+
+.rectangles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    aspect-ratio: 1;
+    height: 100%;
+
+    .rect {
+        display: flex;
+        border-radius: 2em;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid grey;
+        text-decoration: none;
+        flex-direction: column;
+        color: wheat;
+
+        span {
+            font-size: 4em;
+            color: #2c2f38;
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    }
+}
+
+@media (min-width: 600px) {
+    .search {
+        align-self: center;
+        width: 500px !important;
+    }
+
+    .rectangles {
+        align-self: center;
+        width: 500px !important;
+    }
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
