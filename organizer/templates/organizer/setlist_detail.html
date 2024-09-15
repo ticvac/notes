@@ -1,0 +1,10 @@
+{% load tags %}
+
+<div class="content">
+    <h1>SETLIST - {{setlist.name}}</h1>
+    <div style="display: flex; flex-direction: column;">
+        {% for rel in relations|order_by:"numero" %}
+        <li><a href="{{setlist.id}}/relation/{{rel.id}}">{{ forloop.counter }} - {{rel.sheet.name}} - ({{rel.numero}})</a></li>
+        {% endfor %}
+    </div>
+</div>

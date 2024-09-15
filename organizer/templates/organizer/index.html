@@ -1,0 +1,105 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'organizer/style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="content">
+    <div class="tit"><a href="/organizer/browse">Databáze not</a></div>
+
+    <label class="search">
+        <div class="input-row">
+            <span class="material-symbols-rounded">search</span>
+            <input id="search-input" type="text" placeholder="Napište jméno autora" class="fff" oninput="new_text_changed()">
+            <span id="load" class="material-symbols-rounded display-none">refresh</span>
+        </div>
+        <div class="authors display-none" id="pieces">
+            <a href="">Jan Ryba</a>
+            <a href="">Ludwig van Beethoven</a>
+        </div>
+        <div class="authors display-none" id="authors">
+            <a href="">Jan Ryba</a>
+            <a href="">Ludwig van Beethoven</a>
+        </div>
+        
+        <div class="error-message display-none" id="error-message"></div>
+    </label>
+
+    <div class="rectangles">
+        <a href="" class="rect"><span class="material-symbols-rounded">bookmark</span></a>
+        <a href="" class="rect"><span class="material-symbols-rounded">bookmark</span></a>
+        <a href="" class="rect"><span class="material-symbols-rounded">bookmark</span></a>
+    </div>
+    
+
+</div>
+
+<script>
+    function new_text_changed() {
+        var text = document.getElementById('search-input').value;
+        var indicator = document.getElementById("load")
+        if (text.length < 2) {
+            document.getElementById('error-message').classList.add("display-none");
+            document.getElementById('authors').classList.add("display-none");
+            document.getElementById('pieces').classList.add("display-none");
+            return;
+        }
+        var authors = document.getElementById('authors');
+        var pieces = document.getElementById('pieces');
+        indicator.classList.remove("display-none");
+        fetch('browse/search/' + text)
+            .then(response => response.json())
+            .then(data => {
+                indicator.classList.add("display-none");
+                authors.innerHTML = ''; // Clear previous results
+                pieces.innerHTML = ''; // Clear previous results
+                authors.classList.remove("display-none")
+                pieces.classList.remove("display-none")
+                if (data.error) {
+                    authors.classList.add("display-none")
+                    pieces.classList.add("display-none")
+                    error_div = document.getElementById('error-message');
+                    error_div.innerHTML = data.error;
+                    error_div.classList.remove("display-none");
+                    console.log(data.error);
+                    return;
+                }
+                document.getElementById('error-message').classList.add("display-none");
+                // composers
+                composers = data.composers;
+                if (composers.length == 0) {
+                    authors.classList.add("display-none")
+                } else {
+                    for(var i = 0; i < composers.length; i++) {
+                        var composer = composers[i];
+                        var composer_div = document.createElement('a');
+                        composer_div.innerHTML = composer.name;
+                        composer_div.href = 'browse/composer/' + composer.id;
+                        composer_div.classList.add('composer');
+                        authors.appendChild(composer_div);
+                    }   
+                }
+                // pieces
+                pieces_data = data.pieces;
+                if (pieces_data.length == 0) {
+                    pieces.classList.add("display-none")
+                } else {
+                    for(var i = 0; i < pieces_data.length; i++) {
+                        var piece = pieces_data[i];
+                        var piece_div = document.createElement('a');
+                        piece_div.innerHTML = piece.name;
+                        console.log(piece.composers);
+                        piece_div.href = 'browse/composer/' + piece.composers[0].id + "/piece/" + piece.id;
+                        piece_div.classList.add('piece');
+                        pieces.appendChild(piece_div);
+                    }   
+                }
+                
+            })
+    }
+
+
+</script>
