@@ -4,6 +4,8 @@ from django.template.response import TemplateResponse
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 
+def redirect_index(request):
+    return HttpResponseRedirect("/browse")
 
 def index(request):
     context = {}

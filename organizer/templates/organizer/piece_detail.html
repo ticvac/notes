@@ -9,18 +9,18 @@
 
 
 <div class="content">
-    <div class="tit-mini"><a href="/organizer/browse" class="fff">Databáze not</a></div>
+    <div class="tit-mini"><a href="/browse" class="fff">Databáze not</a></div>
     
     <div class="tit"> <a href="javascript:history.back()"> <span class="material-symbols-rounded">arrow_back_ios</span> </a> {{piece.name}}</div>
 
     <div class="sub-tit">
         {%for author in piece.composers.all %}
-        <a href="/organizer/browse/composer/{{author.id}}">{{author.name}}</a>
+        <a href="/browse/composer/{{author.id}}">{{author.name}}</a>
         {%endfor%}
     </div>
     <div class="pieces">
         {% for sheet in piece.sheet_set.all %}
-        <a href="{{piece.id}}/sheet/{{sheet.id}}">{{sheet.name}} <span class="material-symbols-rounded">download</span> </a>
+        <a href="{{piece.id}}/sheet/{{sheet.id}}" target="_blank">{{sheet.name}} <span class="material-symbols-rounded">download</span> </a>
         {% endfor %}
         {% if piece.sheet_set.all.count == 0 %}
         <div style="color: rgba(255, 0, 0, 0.702);">Žádná noty</div>

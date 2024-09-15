@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path("", views.redirect_index, name="redirect_index"),
     path("browse", views.index, name="index"),
     path("browse/search/<str:part_name>", views.search_composer, name="composer_list"),
     path("browse/composer/<int:composer_id>", views.composer_detail, name="composer_detail"),
